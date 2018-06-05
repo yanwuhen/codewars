@@ -49,43 +49,26 @@ func Game(n int) []int {
 	return rst
 } */
 
-func add(a [2]int, b [2]int) [2]int {
-	var c [2]int
-	c[0] = a[0]*b[1] + a[1]*b[0]
-	c[1] = a[1] * b[1]
-	for c[0]%2 == 0 && c[1]%2 == 0 {
-		c[0] /= 2
-		c[1] /= 2
-	}
-	return c
-}
-
 //Game return as result an irreducible fraction written as an array of integers
 func Game(n int) []int {
-	sum := [2]int{0, 1}
-	for i := 2; i <= 2*n; i++ {
-		if i <= n+1 {
-			tmp := [2]int{i - 1, 2}
-			fmt.Println("tmp=", tmp)
-			sum = add(sum, tmp)
-		} else {
-			tmp := [2]int{2*n - i, 2}
-			fmt.Println("tmp=", tmp)
-			sum = add(sum, tmp)
-		}
-		fmt.Println(sum)
+	if n == 0 {
+		return []int{0}
 	}
-	if sum[1] == 1 {
-		return []int{sum[0]}
+	if n == 1 {
+		return []int{1, 2}
 	}
-	return []int{sum[0], sum[1]}
+
+	if n*n%2 == 0 {
+		return []int{n * n / 2}
+	}
+	return []int{n * n, 2}
 
 }
 
 func main() {
-	// fmt.Println(Game(0))
-	// fmt.Println(Game(1))
+	fmt.Println(Game(0))
+	fmt.Println(Game(1))
 	fmt.Println(Game(8))
-	// fmt.Println(Game(40))
+	fmt.Println(Game(40))
 	// fmt.Println(add([]int{1, 2}, []int{3, 3}))
 }
